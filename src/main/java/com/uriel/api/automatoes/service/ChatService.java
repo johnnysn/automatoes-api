@@ -3,39 +3,49 @@ package com.uriel.api.automatoes.service;
 import com.uriel.api.automatoes.data.entity.Chat;
 import com.uriel.api.automatoes.data.entity.Message;
 import com.uriel.api.automatoes.data.repository.ChatRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.ArrayList;
 
 @Service
-public record ChatService(ChatRepository chatRepository) {
+@RequiredArgsConstructor
+public class ChatService {
+
+    private final ChatRepository chatRepository;
+
+    public Chat conversate(String message) {
+        return conversate("", message);
+    }
 
     public Chat conversate(String id, String message) {
         var chat = chatRepository.findById(id).orElseGet(this::createChat);
 
         var userMessage = Message.builder()
-                .id(UUID.randomUUID().toString())
                 .role(Message.Role.USER)
+                .dateTime(LocalDateTime.now())
                 .content(message)
                 .chat(chat)
                 .build();
 
         var assistantMessage= Message.builder()
-                .id(UUID.randomUUID().toString())
                 .role(Message.Role.ASSISTANT)
+                .dateTime(LocalDateTime.now())
                 .content("Entendi tudo.")
                 .chat(chat)
                 .build();
 
         chat.getMessages().add(userMessage);
         chat.getMessages().add(assistantMessage);
-        return chatRepository.save(chat);
+        chatRepository.save(chat);
+        return chat;
     }
 
     private Chat createChat() {
-        return Chat.builder().id(UUID.randomUUID().toString())
+        return Chat.builder()
                 .start(LocalDateTime.now())
+                .messages(new ArrayList<>())
                 .build();
     }
 

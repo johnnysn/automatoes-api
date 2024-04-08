@@ -21,7 +21,11 @@ public class ChatController {
 
     @PostMapping
     public ChatOutDto conversate(@RequestBody @Valid ChatInputDto inputDto) {
-        return mapper.entityToDto(service.conversate(inputDto.id(), inputDto.message()));
+        return mapper.entityToDto(
+                inputDto.id() == null ?
+                        service.conversate(inputDto.message()) :
+                        service.conversate(inputDto.id(), inputDto.message())
+        );
     }
 
 }
