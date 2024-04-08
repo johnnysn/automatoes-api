@@ -1,9 +1,9 @@
 package com.uriel.api.automatoes.dto.output;
 
-import com.uriel.api.automatoes.data.entity.Message;
+import org.springframework.ai.openai.api.OpenAiApi.ChatCompletionMessage.Role;
 
 public record MessageOutDto(
-        Message.Role role,
+        Role role,
         String content
 ) {
 }

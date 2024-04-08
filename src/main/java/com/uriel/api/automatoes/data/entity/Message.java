@@ -2,6 +2,7 @@ package com.uriel.api.automatoes.data.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.ai.openai.api.OpenAiApi.ChatCompletionMessage.Role;
 
 import java.time.LocalDateTime;
 
@@ -18,6 +19,7 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @Column(length = 4000)
     private String content;
 
     private Role role;
@@ -28,9 +30,5 @@ public class Message {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chatId")
     private Chat chat;
-
-    public enum Role {
-        ASSISTANT, USER, SYSTEM
-    }
 
 }

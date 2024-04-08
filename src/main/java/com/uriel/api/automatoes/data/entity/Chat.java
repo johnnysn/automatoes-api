@@ -22,7 +22,8 @@ public class Chat {
     @Column(nullable = false)
     private LocalDateTime start;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "chat")
+    @OrderBy("dateTime asc")
     private List<Message> messages;
 
 }
