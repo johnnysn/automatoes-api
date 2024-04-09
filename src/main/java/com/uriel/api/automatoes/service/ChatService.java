@@ -4,7 +4,6 @@ import com.uriel.api.automatoes.data.entity.Chat;
 import com.uriel.api.automatoes.data.entity.Message;
 import com.uriel.api.automatoes.data.repository.ChatRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ai.openai.api.OpenAiApi.ChatCompletionMessage.Role;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,13 +14,13 @@ import java.util.ArrayList;
 public class ChatService {
 
     private final ChatRepository chatRepository;
-    private final RetrieveCompletionService retrieveCompletionService;
+    private final RetrieveCompletionExecutor retrieveCompletionService;
 
     public Chat conversate(String label, String message) {
         var chat = chatRepository.findByLabel(label).orElse(createChat(label));
 
         var userMessage = Message.builder()
-                .role(Role.USER)
+                .role(Message.Role.USER)
                 .dateTime(LocalDateTime.now())
                 .content(message)
                 .chat(chat)
