@@ -20,6 +20,9 @@ public class Chat {
     private String id;
 
     @Column(nullable = false)
+    private String label;
+
+    @Column(nullable = false)
     private LocalDateTime start;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "chat")
