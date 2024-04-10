@@ -28,5 +28,4 @@ public class BeanProvider {
     public RetrieveCompletionExecutor retrieveCompletionExecutor(AiConfiguration aiConfiguration, OpenAiChatClient chatClient) {
         return new RetrieveCompletionHLExecutor(aiConfiguration, chatClient);
     }
-
 }

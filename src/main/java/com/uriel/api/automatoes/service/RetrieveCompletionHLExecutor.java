@@ -32,10 +32,11 @@ public class RetrieveCompletionHLExecutor implements RetrieveCompletionExecutor 
                                 .build()
                 )
         );
+        var result = response.getResult();
 
         return Message.builder()
                 .role(Message.Role.ASSISTANT)
-                .content(response.getResult().getOutput().getContent())
+                .content(result.getOutput().getContent())
                 .dateTime(LocalDateTime.now())
                 .build();
     }
