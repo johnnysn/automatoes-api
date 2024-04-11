@@ -29,6 +29,7 @@ public class RetrieveCompletionHLExecutor implements RetrieveCompletionExecutor 
                         OpenAiChatOptions.builder()
                                 .withModel(aiConfiguration.getChatModel())
                                 .withTemperature(aiConfiguration.getChatTemperature())
+                                .withFunction("weatherFunction")
                                 .build()
                 )
         );
